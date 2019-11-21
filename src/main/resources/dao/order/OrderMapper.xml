@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.xixie.dao.order.OrderMapper">
+    <select id="findOrderList" resultType="com.example.xixie.model.order.QxOrder">
+        SELECT
+        a.address_id as addressId,
+        a.coupon_id as couponId,
+        a.create_time as createTime,
+        a.discount_price as discountPrice,
+        a.id,
+        a.item_ids as itemIds,
+        a.order_no as orderNo,
+        a.price,
+        a.shoe_img as shoeImg,
+        a.`status`,
+        a.type,
+        a.update_time as updateTime,
+        a.user_id as userId
+        FROM
+        qx_order a
+    </select>
+</mapper>
+  

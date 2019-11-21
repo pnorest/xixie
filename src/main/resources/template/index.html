@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="css/index.css" rel="stylesheet"/>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/util.js"></script>
+    <style>
+        .content{
+            height:100%;
+            background: url("image/bgImg.jpg") no-repeat;
+            background-size:cover;
+        }
+        .title{
+            background-color: transparent;
+        }
+        .content_main{
+            height:calc(100% - 100px);
+            padding-top:30px;
+        }
+        .goBack_div{
+            margin:0 30px 0 0;
+            text-align: right;
+        }
+        .main{
+            padding:10px 0 0 10%;
+        }
+        .operation_div,.query_div,.userManagement_div{
+            margin-top: 40px;
+            width: 100px;
+            height: 42px;
+            line-height: 42px;
+            border: 1px solid rgba(255, 255, 255, .3);
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .operation_div a,.query_div a,.userManagement_div a{
+            color:rgba(255, 255, 255, .8);
+            text-decoration: none;
+        }
+        .operation_div:hover,.operation_div:active,.query_div:hover,.query_div:active,.userManagement_div:hover,.userManagement_div:active{
+            background-color: #fff;
+        }
+        .operation_div:hover a,.operation_div:active a,.query_div:hover a,.query_div:active a,.userManagement_div:hover a,.userManagement_div:active a{
+            color:rgba(0, 0, 0, .85);
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="title">
+            <img src="image/logo.png" alt="" class="logo_img">
+            <h1>管理系统
+                <div class="userInfo" id="userInfo">
+                    <img src="image/account.png" alt="" class="userImg">
+                    <span class="userName" id="userName">admin</span>
+                    <i class="downIcon"></i>
+                </div>
+                <div class="dropdown" id="dorpdown" style="display: none;">
+                    <div class="dropdown_icon"></div>
+                    <ul class="dropdown_menu">
+                        <li class="dropdown_item" id="loginOut">退出</li>
+                    </ul>
+                </div>
+            </h1>
+            <div class="clear"></div>
+        </div>
+        <div class="content_main">
+            <div class="main">
+                <div class="operation_div" id="operation_div">
+                    <a href="/dumps/operation">用户管理</a>
+                </div>
+                <div class="query_div" id="query_div">
+                    <a href="/dumps/query">商户管理</a>
+                </div>
+                <div class="userManagement_div" id="userManagement_div">
+                    <a href="/dumps/userManagement">订单管理</a>
+                </div>
+                <div class="userManagement_div" id="coupon_div">
+                    <a href="/dumps/userManagement">优惠券管理</a>
+                </div>
+                <div class="userManagement_div" id="item_div">
+                    <a href="/dumps/userManagement">修复项目管理</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            console.log(localStorage.getItem('username'));
+            if(localStorage.getItem('username')){
+                $('#userName').html(localStorage.getItem('username'));
+            }
+        });
+
+        $('#userInfo').click(function(){
+            $('#dorpdown').toggle()
+        });
+    </script>
+</body>
+</html>

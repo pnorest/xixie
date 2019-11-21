@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理系统</title>
+    <link href="css/index.css" rel="stylesheet"/>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <style>
+        .login_bg{
+            height:100%;
+            width:100%;
+            background: url("image/login_bg.png") no-repeat;
+            background-size:cover;
+        }
+        .login{
+            width:400px;
+            height:340px;
+            padding:10px;
+            background-color: #fff;
+            box-shadow: 0px 0px 42px 0px rgba(0, 37, 63, 0.46);
+            border-radius: 5px;
+            position: fixed;
+            top:50%;
+            left:50%;
+            margin-left:-200px;
+            margin-top:-160px;
+            text-align: center;
+        }
+        .login_log,.login_title,.rem_password_div,.submitBtn_div,.register_div{
+            text-align: center;
+            margin:10px 0;
+        }
+        .login_log_img{
+            width: 60px;
+            height: 60px;
+        }
+        .username_div,.possword_div,.verifyCode_div{
+            position:relative;
+            text-align: center;
+            margin-top:5px;
+        }
+        .username_div .img,.possword_div .img,.verifyCode_div .img{
+            position: absolute;
+            top: 26%;
+            left: 15%;
+            border: 0;
+            vertical-align: middle;
+            width: 4%;
+        }
+        .username,.password,.verifyCode{
+            width: 65%;
+            height: 32px;
+            border: 0;
+            border-bottom: 1px solid #ccc;
+            padding-left: 7%;
+            font-size: 18px;
+            line-height:32px;
+        }
+        .verifyCode{
+            width: 45%;
+        }
+        .verifyCode_div .codeImg{
+            border: 0;
+            vertical-align: middle;
+            width: 20%;
+            cursor: pointer;
+        }
+        .rem_password_div input{
+            vertical-align: middle;
+        }
+        .submitBtn_div{
+            margin-bottom: 5px;
+        }
+        .submitBtn{
+            width:60%;
+            height:30px;
+            line-height: 30px;
+            border-radius:10px;
+            background-color: #1d4058;
+            padding:0;
+        }
+        .register_div a{
+            text-decoration: none;
+            color: #1d4058;
+        }
+        .inputError{
+            color:red;
+            font-size:12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login_bg">
+        <form id="form" action="/login" method="post">
+            <div class="login">
+
+                <div class="login_log">
+                    <img src="image/logo1.png" alt="" class="login_log_img">
+                </div>
+                <h3 class="login_title">-- 后台管理系统 --</h3>
+                <div class="login_main">
+                    <div class="username_div">
+                        <img src="image/account.png" alt="" class="img">
+                        <input type="text" name="username" class="username" id="username" placeholder="账号" th:value="${username}">
+                    </div>
+                    <div class="possword_div">
+                        <img src="image/password.png" alt="" class="img">
+                        <input type="password" name="password" class="password" id="password" placeholder="密码" th:value="${password}">
+                    </div>
+                </div>
+                <div class="submitBtn_div">
+                    <input type="submit" id="submit" class="btn submitBtn" value="登录"></input>
+                </div>
+                <div class="inputError" id="inputError">
+                    <span th:text="${msg}"></span>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <script>
+       $('#submit').click(function(){
+            var username = $('#username').val();
+            var password = $('#password').val();
+            var verifyCode = $('#verifyCode').val();
+            if(username==''){
+                $('#inputError').html('请输入用户名!');
+                return false;
+            }
+            if(password==''){
+                $('#inputError').html('请输入密码!');
+                return false;
+            }
+           if(verifyCode==''){
+               $('#inputError').html('请输入验证码!');
+               return false;
+           }
+           localStorage.setItem('username',username);
+       });
+
+       $('#remember').click(function(){
+           console.log($('#remember'));
+       })
+
+    </script>
+</body>
+</html>

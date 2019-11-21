@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/index.css" rel="stylesheet"/>
+    <link href="css/jquery.pagination.css" rel="stylesheet"/>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery.pagination.min.js"></script>
+    <script src=" js/util.js"></script>
+    <style>
+        .main{
+            padding:0 30px;
+        }
+        .main h2{
+            text-align: center;
+            position: relative;
+            margin:30px 0;
+        }
+        .goBackBtn{
+            position: absolute;
+            right:0px;
+            top:0px;
+        }
+        .main_add{
+            text-align: right;
+        }
+        .fr{
+            float: right;
+        }
+        .table{
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align:center;
+            width:100%;
+        }
+        .table th,.table td{
+            border:1px solid #dbdbdb;
+            padding:5px 10px;
+        }
+        .table th{
+            background: #f0f0f0;
+        }
+        .main_content{
+            position: relative;
+            height:400px;
+        }
+        .pageBox{
+            position: absolute;
+            bottom:0;
+            right:0;
+            overflow: hidden;
+        }
+        .jump_div{
+            float: right;
+            margin:2px 0 0 2px;
+        }
+        .jump_input{
+            width:20px;
+            height:25px;
+        }
+        .jump_btn{
+            padding:7px 15px;
+        }
+        .editItem,.detailItem{
+            color:#048cef;
+            cursor: pointer;
+        }
+
+        .form_item{
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .form_item label{
+            width:60px;
+            display: inline-block;
+            text-align: right;
+            vertical-align: middle;
+        }
+        .form_item input,.form_item select{
+            width:calc(100% - 80px);
+            float: right;
+        }
+        .form_item select{
+            width:calc(100% - 68px);
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        <img src="image/logo.png" alt="" class="logo_img">
+        <h1>转储系统
+            <div class="userInfo" id="userInfo">
+                <img src="image/account.png" alt="" class="userImg">
+                <span class="userName" id="userName">admin</span>
+                <i class="downIcon"></i>
+            </div>
+            <div class="dropdown" id="dorpdown" style="display: none;">
+                <div class="dropdown_icon"></div>
+                <ul class="dropdown_menu">
+                    <li class="dropdown_item" id="loginOut">退出</li>
+                </ul>
+            </div>
+        </h1>
+        <div class="clear"></div>
+    </div>
+    <div class="main">
+        <h2>用户管理
+            <button class="btn goBackBtn" id="goBack">返回</button>
+        </h2>
+        <div class="main_add">
+            <button class="btn" id="addBtn">新增</button>
+        </div>
+        <br>
+        <div class="main_content">
+            <table class="table" id="myTable">
+                <thead>
+                <tr>
+                    <th>用户名</th>
+                    <th>用户角色</th>
+                    <th>用户状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <div class="box pageBox">
+                <div class="jump_div" id="jump_div">
+                    <input type="text" class="jump_input" id="jump_input">
+                    <button class="jump_btn btn" id="jump_btn">跳转</button>
+                </div>
+                <div id="pagination1" class="page fr">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--新增编辑信息-->
+    <div class="modal-mask" id="editModal" style="display: none;">
+        <div class="tipModal">
+            <div class="modal-content">
+                <div class="modal-header" id="headerTip">
+                </div>
+                <div class="modal-body">
+                    <div class="form">
+                        <div class="form_item">
+                            <label for="username">用户名</label>
+                            <input type="text" id="username" placeholder="请输入">
+                        </div>
+                        <div class="form_item">
+                            <label for="roleId">用户角色</label>
+                            <select id="roleId" >
+                                <option value="2">user</option>
+                                <option value="1">admin</option>
+                            </select>
+                        </div>
+                        <div class="form_item">
+                            <label for="status">用户状态</label>
+                            <select id="status">
+                                <option value="0">禁用</option>
+                                <option value="1">启用</option>
+                            </select>
+                        </div>
+                        <div class="form_item">
+                            <label for="password">密码</label>
+                            <input type="text" id="password" placeholder="请输入">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn cancelBtn" id="editModal_cancelBtn">取消</button>
+                    <button class="btn submitBtn" id="editModal_submitBtn">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--确认删除提示信息-->
+    <div class="modal-mask" id="deleteModal" style="display: none;">
+        <div class="tipModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    提示
+                </div>
+                <div class="modal-body">
+                    <div>此操作将永久删除，是否确认删除吗？</div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn cancelBtn" id="deleteModal_cancelBtn">取消</button>
+                    <button class="btn submitBtn" id="deleteModal_submitBtn">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--提示信息-->
+    <div class="modal-mask" id="tipErrorModal" style="display: none;">
+        <div class="tipModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    提示
+                </div>
+                <div class="modal-body">
+                    <div id="tipError"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn submitBtn" id="tipErrorModal_submitBtn">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    var pageTotal,dataList,deleteId,editId,addOrEdit;
+    $(document).ready(function() {
+        load(1)
+    });
+
+    $('#userInfo').click(function(){
+        $('#dorpdown').toggle()
+    });
+
+    $('#goBack').click(function(){
+        window.location.href='/dumps/index'
+    });
+
+    var showData=function(data){
+        console.log(data)
+        var list = data.list;
+        if(list.length>0){
+            $('#myTable>tbody').empty();
+            for(var i=0;i<list.length;i++){
+                if(list[i].status==0){list[i].statusText="禁用"}
+                else if(list[i].status==1){list[i].statusText="启用"}
+                var str = '';
+                str+='<tr>';
+                str+='<td>'+list[i].username+'</td>';
+                str+='<td>'+list[i].roleName+'</td>';
+                str+='<td>'+list[i].statusText+'</td>';
+                str+='<td id="'+list[i].id+'"><span class="editItem" onclick="editClick(this)">编辑</span>&nbsp;&nbsp;<span class="detailItem" onclick="deleteClick(this)">删除</span></td>';
+                str+='</tr>';
+                $('#myTable>tbody').append(str)
+            }
+            $("#pagination1").pagination({
+                currentPage: data.pageNum,
+                totalPage: data.pages,
+                callback: function(current) {
+                    console.log(current);
+                    if(current<= data.pages){
+                        load(current)
+                    }else{
+                    }
+
+                }
+            });
+            if(data.total<2){
+                $('#jump_div').hide()
+            }
+        }else{
+            $('#myTable>tbody').empty();
+            var str = '';
+            str+='<tr>';
+            str+='<td colspan="7">暂无数据</td>';
+            str+='</tr>';
+            $('#myTable>tbody').append(str);
+            console.log(data)
+            $("#pagination1").pagination({
+                currentPage: 1,
+                totalPage: 1,
+                callback: function(current) {
+                    console.log(current)
+                }
+            });
+            $('#jump_div').hide()
+        }
+    };
+
+    var load=function(pageNum){
+        var params={
+            pageNum:pageNum,
+            pageSize:'10'
+        };
+        $.ajax({
+            type:'POST',
+            url:'/dumps/findUser',
+            data:params,
+            dataType:'json',
+            success:function(res){
+                dataList=res.list
+                pageTotal=res.pages;
+                showData(res)
+            },
+            error:function(){
+                if(pageNum != 2){
+                    var data={pages:2,pageSize:'10',pageNum:pageNum,list:[
+                            {id:'1',username:'张三',roleName:'user',status:'0',password:'123'},{id:'2',username:'张三',rolename:'admin',status:'1',password:'123'},
+                            {id:'3',username:'李四',roleName:'admin',status:'0',password:'456'},{id:'4',username:'张三',rolename:'admin',status:'0',password:'123'},
+                            {id:'5',username:'张三',roleName:'user',status:'1',password:'789'},{id:'6',username:'张三',rolename:'admin',status:'0',password:'123'},
+                            {id:'7',username:'张三',roleName:'user',status:'1',password:'123'},{id:'8',username:'张三',rolename:'admin',status:'0',password:'123'},
+                            {id:'9',username:'张三',roleName:'user',status:'1',password:'123'},{id:'10',username:'张三',rolename:'admin',status:'0',password:'123'},
+                        ]};
+                    dataList=data.list
+                }else if(pageNum == 2){
+                    var data={pages:2,pageSize:'10',pageNum:pageNum,list:[
+                            {id:'11',username:'张三',roleName:'admin',status:'1',password:'123'},{id:'12',username:'张三',rolename:'admin',status:'0',password:'123'},
+                            {id:'13',username:'张三',roleName:'admin',status:'1',password:'123'},
+                        ]};
+                    dataList=data.list
+                }
+                pageTotal=data.pages;
+                showData(data)
+            }
+        })
+    };
+
+    $('#addBtn').click(function(){
+        $('#username').css('cursor','default')
+        $('#username').attr('disabled',false)
+        $("#editModal").show();$("#headerTip").html("新增");
+        addOrEdit='add';
+        $('#username').val('');
+        $('#roleId').val('');
+        $('#status').val('');
+        $('#password').val('')
+    });
+
+    function editClick(obj){
+        $('#username').attr('disabled',true)
+        $('#username').css('cursor','not-allowed')
+        console.log($(obj).parent().attr('id'));
+        editId=$(obj).parent().attr('id');
+        $("#editModal").show();
+        $("#headerTip").html("编辑");
+        addOrEdit='edit';
+        for(var i=0;i<dataList.length;i++){
+            if(editId==dataList[i].id){
+                $('#username').val(dataList[i].username);
+                $('#roleId').val(dataList[i].roleId);
+                $('#status').val(dataList[i].status);
+                $('#password').val(dataList[i].password)
+            }
+        }
+    }
+
+    $('#editModal_submitBtn').click(function(){
+       if(addOrEdit=='add'){
+           if(!$('#username').val()){$("#tipErrorModal").show();$("#tipError").html("用户名不能为空 !");return}
+           if(!$('#roleId').val()){$("#tipErrorModal").show();$("#tipError").html("用户角色不能为空 !");return}
+           if(!$('#status').val()){$("#tipErrorModal").show();$("#tipError").html("用户状态不能为空 !");return}
+           if(!$('#password').val()){$("#tipErrorModal").show();$("#tipError").html("密码不能为空 !");return}
+           var params={
+               username:$('#username').val(),
+               roleId:$('#roleId').val(),
+               status:$('#status').val(),
+               password:$('#password').val()
+           };
+           $.ajax({
+               type:'POST',
+               url:'/dumps/addUser',
+               data:params,
+               success:function(res){
+                   console.info(res)
+                   $("#tipErrorModal").show();
+                   $("#tipError").html(res.message);
+                   if (res.code==0){
+                       $("#editModal").hide();
+                       load(1)
+                   }
+               },
+               error:function(){
+                   $("#tipErrorModal").show();$("#tipError").html("服务器错误!");
+               }
+           })
+       }else if(addOrEdit='edit'){
+           if(!$('#username').val()){$("#tipErrorModal").show();$("#tipError").html("用户名不能为空 !");return}
+           if(!$('#roleId').val()){$("#tipErrorModal").show();$("#tipError").html("用户角色不能为空 !");return}
+           if(!$('#status').val()){$("#tipErrorModal").show();$("#tipError").html("用户状态不能为空 !");return}
+           if(!$('#password').val()){$("#tipErrorModal").show();$("#tipError").html("密码不能为空 !");return}
+           var params={
+               id:editId,
+               username:$('#username').val(),
+               roleId:$('#roleId').val(),
+               status:$('#status').val(),
+               password:$('#password').val()
+           };
+           $.ajax({
+               type:'POST',
+               url:'/dumps/updateUser',
+               data:params,
+               success:function(res){
+                   $("#tipErrorModal").show();
+                   $("#tipError").html(res.message);
+                   if (res.code==0){
+                       $("#editModal").hide();
+                       load(1)
+                   }
+               },
+               error:function(){
+                   $("#tipErrorModal").show();$("#tipError").html("服务器错误!");
+               }
+           })
+       }
+    });
+
+    $('#editModal_cancelBtn').click(function(){
+        $("#editModal").hide();
+    });
+
+    function deleteClick(obj){
+        console.log($(obj).parent().attr('id'))
+        deleteId=$(obj).parent().attr('id')
+        $("#deleteModal").show();
+    }
+
+    $('#deleteModal_cancelBtn').click(function(){
+        $("#deleteModal").hide();
+    });
+
+    $('#deleteModal_submitBtn').click(function(){
+        $("#deleteModal").hide();
+        var params={
+            id:deleteId
+        };
+        $.ajax({
+            type:'POST',
+            url:'/dumps/deleteUser',
+            data:params,
+            dataType:'json',
+            success:function(res){
+                $("#tipErrorModal").show();
+                $("#tipError").html(res.message);
+                if (res.code == 0) {
+                    load(1);
+                }
+            },
+            error:function(){
+                $("#tipErrorModal").show();$("#tipError").html("服务器错误!");
+            }
+        })
+    });
+
+    $("#tipErrorModal_submitBtn").click(function(){
+        $("#tipErrorModal").hide()
+    });
+
+    $('#jump_btn').click(function(){
+        console.log($('#jump_input').val());
+        var reg=/^[1-9]\d*$/;
+        if(reg.test(Number($('#jump_input').val()))&&Number($('#jump_input').val())<=pageTotal){
+            load(Number($('#jump_input').val()))
+        }else{
+
+        }
+    })
+
+
+</script>
+</body>
+</html>
