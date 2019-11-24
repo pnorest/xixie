@@ -61,6 +61,16 @@ public class OrderController {
     }
 
 
+    @RequestMapping("/orderDetail")
+    public String orderDetail(String orderNo) {//根据order_no订单编号查询订单详细数据
+        try {
+            return "orderDetail";
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @RequestMapping("/orderDetails")
     public QxOrder orderDetails(String order_no) {//根据order_no订单编号查询订单详细数据
         try {
