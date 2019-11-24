@@ -98,7 +98,7 @@
                 <th>下单时间</th>
                 <th>下单地址</th>
                 <th>下单金额</th>
-                <th>支付详情</th>
+                <th>订单状态</th>
                 <th>订单详情</th>
             </tr>
             </thead>
@@ -190,23 +190,26 @@
                 var timeSencond=Math.floor((leave2%(60*1000))/1000);
                 list[i].timeConsuming = timeHours+"时"+timeMinutes+"分"+timeSencond+"秒";
 
-                list[i].startTime=changeDatefunc(list[i].startTime);
+                list[i].createTime=changeDatefunc(list[i].createTime);
                 list[i].stopTime=changeDatefunc(list[i].stopTime);
 
                 list[i].successRate=list[i].objectCount==0?'0%':Math.round((Number(list[i].okCount)/Number(list[i].objectCount))*10000)/100.00+"%";
 
                 var str = '';
                 str+='<tr>';
-                // str+='<td>'+list[i].status+'</td>';
-                str+='<td>'+list[i].startTime+'</td>';
-                str+='<td>'+list[i].stopTime+'</td>';
-                str+='<td>'+list[i].timeConsuming+'</td>';
-                str+='<td>'+list[i].objectCount+'</td>';
-                str+='<td>'+list[i].okCount+'</td>';
-                str+='<td>'+list[i].successRate+'</td>';
+                //str+='<td>'+list[i].status+'</td>';
+                str+='<td>'+list[i].orderNo+'</td>';
+                str+='<td>'+list[i].createTime+'</td>';
+                str+='<td>'+list[i].addressId+'</td>';
+                str+='<td>'+list[i].price+'</td>';
+                str+='<td>'+list[i].status+'</td>';
+                str+='<td>'+"查看详细"+'</td>';
                 str+='</tr>';
                 $('#myTable>tbody').append(str)
             }
+
+        // <a th:href="@{'./orderDetail?orderId='+${order.orderId}}" title="查看详细"><i
+        // class="glyphicon glyphicon-search"></i></a>
 
             console.log(data.pageNum,data.pages);
             console.log($("#pagination1"));
@@ -249,8 +252,8 @@
         var endDate=$('#endDate').val();
 
         var params={
-            startDate:startDate,
-            endDate:endDate,
+            // startDate:startDate,
+            // endDate:endDate,
             pageNum:pageNum,
             pageSize:'10'
         };
