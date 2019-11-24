@@ -3,6 +3,8 @@ package com.example.xixie.service.order.impl;
 import com.example.xixie.dao.order.OrderMapper;
 import com.example.xixie.model.order.QxOrder;
 import com.example.xixie.service.order.OrderService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,6 +25,14 @@ public class OderServiceImpl implements OrderService {
 
     public List<QxOrder> findOrderList(){
         return orderMapper.findOrderList();
+    }
+
+    public PageInfo<QxOrder> queryOrderList(Integer pageNum, Integer pageSize, String startDate, String endDate)
+    {
+        PageHelper.startPage(pageNum, pageSize);
+        List<QxOrder> confHisList = orderMapper.findOrderListByTime(startDate, endDate);
+        PageInfo<QxOrder> dumpsRawStatPageInfo = new PageInfo(confHisList);
+        return dumpsRawStatPageInfo;
     }
 
 

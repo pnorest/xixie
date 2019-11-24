@@ -2,9 +2,12 @@ package com.example.xixie.controller.order;
 
 import com.example.xixie.model.order.QxOrder;
 import com.example.xixie.service.order.OrderService;
+import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -43,6 +46,20 @@ public class OrderController {
             return null;
         }
     }
+
+    /**
+     * @description 查询所有订单数据并分页
+     * @author ZL
+     * @date 2019/1/3 9:55
+     **/
+    @RequestMapping("/queryOrderList")
+    @ResponseBody
+    public PageInfo<QxOrder> queryOrderList(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("startDate") String startDate, @Param("endDate") String endDate) {
+        PageInfo<QxOrder> orderListInfo = orderService.queryOrderList(pageNum, pageSize, startDate, endDate);
+        return orderListInfo;
+
+    }
+
 
     @RequestMapping("/orderDetails")
     public QxOrder orderDetails(String order_no) {//根据order_no订单编号查询订单详细数据

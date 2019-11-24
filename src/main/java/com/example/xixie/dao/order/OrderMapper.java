@@ -7,7 +7,9 @@ import java.util.List;
 
 @Mapper
 public interface OrderMapper {
+    List<QxOrder> findOrderListByTime(String startDate, String endDate);
     List<QxOrder> findOrderList();
+
 
     QxOrder findOrderDetails(String orderNo);
 
