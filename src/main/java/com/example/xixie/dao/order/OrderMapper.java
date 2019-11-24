@@ -8,4 +8,8 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
     List<QxOrder> findOrderList();
+
+    QxOrder findOrderDetails(String orderNo);
+
+    void updateOrderInfo(String orderNo);
 }

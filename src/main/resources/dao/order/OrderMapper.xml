@@ -19,5 +19,36 @@
         FROM
         qx_order a
     </select>
+
+
+    <select id="findOrderDetails" resultType="com.example.xixie.model.order.QxOrder">
+        SELECT
+        a.address_id as addressId,
+        a.coupon_id as couponId,
+        a.create_time as createTime,
+        a.discount_price as discountPrice,
+        a.id,
+        a.item_ids as itemIds,
+        a.order_no as orderNo,
+        a.price,
+        a.shoe_img as shoeImg,
+        a.`status`,
+        a.type,
+        a.update_time as updateTime,
+        a.user_id as userId
+        FROM
+        qx_order a where a.order_no=#{orderNo}
+
+    </select>
+
+
+    <update id="updateOrderInfo">
+        update qx_order a set
+        a.`status` =#{status}
+        a.update_time = now
+        where order_no=#{orderNo}
+
+
+    </update>
 </mapper>
   

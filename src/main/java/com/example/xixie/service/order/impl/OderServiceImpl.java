@@ -26,4 +26,17 @@ public class OderServiceImpl implements OrderService {
     }
 
 
+    public QxOrder orderDetails(String orderNo){
+        return orderMapper.findOrderDetails(orderNo);
+    }
+
+
+    public void updateOrderInfo(String orderNo){
+         orderMapper.updateOrderInfo(orderNo);
+    }
+
+
+
+
+
 }

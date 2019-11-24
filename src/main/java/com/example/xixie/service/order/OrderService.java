@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface OrderService {
     List<QxOrder> findOrderList();
+
+    QxOrder orderDetails(String order_no);
+
+    void updateOrderInfo(String orderNo);
 }
