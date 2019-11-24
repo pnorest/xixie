@@ -64,7 +64,7 @@
 <body>
     <div class="title">
         <img src="image/logo.png" alt="" class="logo_img">
-        <h1>转储系统
+        <h1>洗鞋系统
             <div class="userInfo" id="userInfo">
                 <img src="image/account.png" alt="" class="userImg">
                 <span class="userName" id="userName">admin</span>
@@ -79,57 +79,78 @@
         </h1>
         <div class="clear"></div>
     </div>
-    <div class="main">
-        <h2>任务列表查看
-            <button class="btn goBackBtn" id="goBack">返回</button>
-        </h2>
-        <div class="main_search">
-            <input type="date" id="startDate">
-            <input type="date" id="endDate">
-            <input type="button" value="查询" id="storeBtn" class="btn">
-        </div>
-        <br>
-        <div class="main_content">
-            <table class="table" id="myTable">
-                <thead>
-                <tr>
-                    <!--<th>状态信息</th>-->
-                    <th>开始时间</th>
-                    <th>截止时间</th>
-                    <th>耗时</th>
-                    <th>总对象数</th>
-                    <th>成功数</th>
-                    <th>成功率</th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
 
-            <div class="box pageBox">
-                <div class="jump_div" id="jump_div">
-                    <input type="text" class="jump_input" id="jump_input">
-                    <button class="jump_btn btn" id="jump_btn">跳转</button>
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>订单详情</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
                 </div>
-                <div id="pagination1" class="page fr">
-                    <!--<div class="ui-pagination-container">-->
-                        <!--<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="1">首页</a>-->
-                        <!--<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="5">上一页</a>-->
-                        <!--<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="4">4</a>-->
-                        <!--<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="5">5</a>-->
-                        <!--<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="6">6</a>-->
-                        <!--<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="7">7</a>-->
-                        <!--<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="8">8</a>-->
-                        <!--<input type="text" style="height:20px;width:50px;margin-top:-4px" placeholder="页码">-->
-                        <!--<a href="javascript:void(0);" class="ui-pagination-page-btn">跳转</a>-->
-                        <!--<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="7">下一页</a>-->
-                        <!--<a href="javascript:void(0);" class="ui-pagination-page-item" data-current="12">尾页</a>-->
-
-                    <!--</div>-->
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class=" table table-bordered table-hover" data-page-size="10">
+                        <thead>
+                        <tr style="text-align: center">
+                            <th style="width:10%;">订单号</th>
+                            <th style="width:5%;">姓名</th>
+                            <th style="width:7%;">手机号</th>
+                            <th style="width:5%;">短信验证码</th>
+                            <th style="width:3%;">性别</th>
+                            <th style="width:10%;">出生日期</th>
+                            <th style="width:10%;">地区</th>
+                            <th style="width:10%;">详细地址</th>
+                            <th style="width:10%;">电子邮箱</th>
+                            <th style="width:5%;">检测项目</th>
+                            <th style="width:5%;">是否需要纸质报告</th>
+                            <th style="width:5%;">支付状态</th>
+                            <th style="width:10%;">处理状态</th>
+                            <th style="width:5%;">处理时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr >
+                            <td text="${111}">Onions</td>
+                            <td text="${222}">Onions</td>
+                            <td text="${333}">Onions</td>
+                            <td text="${444}">Onions</td>
+                            <td text="${555}">Onions</td>
+                            <td text="${666}">Onions</td>
+                            <td text="${777}">Onions</td>
+                            <td text="${888}">Onions</td>
+                            <td text="${999}">Onions</td>
+                            <td text="${100}">Onions</td>
+                            <td text="${110}">Onions</td>
+                            <td text="${120}">Onions</td>
+                            <td text="${120}">Onions</td>
+                            <td text="${120}">Onions</td>
+                        </tr>
+                        <!--<tr th:each="order:${orders}">-->
+                            <!--<td th:text="${order.orderId}">Onions</td>-->
+                            <!--<td th:text="${order.userName}">Onions</td>-->
+                            <!--<td th:text="${order.phoneNum}">Onions</td>-->
+                            <!--<td th:text="${order.smsNum}">Onions</td>-->
+                            <!--<td th:text="${order.sex}">Onions</td>-->
+                            <!--<td th:text="${#dates.format(order.birthday,'yyy-MM-dd')}">Onions</td>-->
+                            <!--<td th:text="${order.region}">Onions</td>-->
+                            <!--<td th:text="${order.location}">Onions</td>-->
+                            <!--<td th:text="${order.email}">Onions</td>-->
+                            <!--<td th:text="${order.projectType}">Onions</td>-->
+                            <!--<td th:text="${order.paperStatus}?'是':'否'">Onions</td>-->
+                            <!--<td th:text="${order.payStatus}?'已支付':'未支付'">Onions</td>-->
+                            <!--<td th:text="${order.handleStatus}">Onions</td>-->
+                            <!--<td th:text="${order.handleTime}">Onions</td>-->
+                        <!--</tr>-->
+                        </tbody>
+                    </table>
                 </div>
-
             </div>
         </div>
+    </div>
+
     </div>
 <script>
     var pageTotal;
