@@ -13,4 +13,6 @@ public interface OrderService {
     void updateOrderInfo(String orderNo);
 
      PageInfo<QxOrder> queryOrderList(Integer pageNum, Integer pageSize, String startDate, String endDate);
+
+    List<QxOrder> orderSearchList(Integer orderSearch);
 }

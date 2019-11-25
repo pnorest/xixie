@@ -14,4 +14,6 @@ public interface OrderMapper {
     QxOrder findOrderDetails(String orderNo);
 
     void updateOrderInfo(String orderNo);
+
+    List<QxOrder> orderSearchList(Integer orderSearch);
 }

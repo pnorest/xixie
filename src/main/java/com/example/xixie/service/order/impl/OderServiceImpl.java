@@ -35,6 +35,9 @@ public class OderServiceImpl implements OrderService {
         return dumpsRawStatPageInfo;
     }
 
+    public List<QxOrder> orderSearchList(Integer orderSearch){
+        return orderMapper.orderSearchList(orderSearch);
+    }
 
     public QxOrder orderDetails(String orderNo){
         return orderMapper.findOrderDetails(orderNo);

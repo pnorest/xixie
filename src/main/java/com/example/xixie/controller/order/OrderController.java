@@ -48,6 +48,19 @@ public class OrderController {
         }
     }
 
+    @RequestMapping("/orderSearch")
+    @ResponseBody
+    public List<QxOrder> orderSearch(Integer searchValue) {//返回订单列表数据
+        try {
+            return orderService.orderSearchList(searchValue);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
     /**
      * @description 查询所有订单数据并分页
      * @author ZL
