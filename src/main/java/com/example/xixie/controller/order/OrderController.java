@@ -71,8 +71,20 @@ public class OrderController {
         }
     }
 
-    @RequestMapping("/test")
+    @RequestMapping("/orderVue")
     public String orderDetails() {//根据order_no订单编号查询订单详细数据
+        try {
+            return "orderVue";
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    @RequestMapping("/test")
+    public String test() {//根据order_no订单编号查询订单详细数据
         try {
             return "test";
 
@@ -81,7 +93,6 @@ public class OrderController {
             return null;
         }
     }
-
 
     @RequestMapping("/updateOrderInfo")
     public void updateOrderInfo(String orderNo) {//根据order_no订单编号修改订单详细数据
