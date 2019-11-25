@@ -37,6 +37,7 @@ public class OrderController {
     }
 
     @RequestMapping("/orderList")
+    @ResponseBody
     public List<QxOrder> orderList() {//返回订单列表数据
         try {
             return orderService.findOrderList();
