@@ -48,10 +48,12 @@ public class OrderController {
         }
     }
 
+    //根据用户名，手机号/单号查询   --这里是根据单号查询，后期优化
     @RequestMapping("/orderSearch")
     @ResponseBody
     public List<QxOrder> orderSearch(Integer searchValue) {//返回订单列表数据
         try {
+
             return orderService.orderSearchList(searchValue);
 
         }catch (Exception e){
@@ -62,7 +64,7 @@ public class OrderController {
 
 
     /**
-     * @description 查询所有订单数据并分页
+     * @description 查询所有订单数据并分页(前端分页，这里弃用)
      * @author ZL
      * @date 2019/1/3 9:55
      **/
