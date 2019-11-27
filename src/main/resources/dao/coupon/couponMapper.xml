@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.xixie.dao.coupon.CouponMapper">
+    <select id="queryCouponList" resultType="com.example.xixie.model.coupon.Coupon">
+        SELECT
+        SELECT
+            id,
+            price,
+            NAME,
+            create_time AS createTime,
+            `status`,
+            use_time AS useTime,
+            user_id AS userId
+        FROM
+            qx_coupon
+    </select>
+
+    <insert id="addCoupon">
+        INSERT INTO qx_coupon
+            (
+            price,
+            name,
+            create_time,
+            status,
+            user_id
+            )
+            VALUES
+                (
+                #{price},
+                #{name},
+                now(),
+                1,
+                #{userId}
+                )
+    </insert>
+
+    <update id="deleteCoupon">
+        UPDATE qx_coupon
+        SET `status` = 0
+        WHERE
+            id =#{id}
+    </update>
+
+
+    <update id="updateCoupon">
+        UPDATE qx_coupon
+            SET
+            `status` = #{status} ,
+            price=#{price},
+            `name`=#{name},
+            use_time=now(),
+            user_id=#{userId}
+            WHERE
+                id =#{id}
+    </update>
+
+
+</mapper>
+  

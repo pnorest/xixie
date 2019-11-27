@@ -1,10 +1,13 @@
-package com.example.xixie.service.coupon;
+package com.example.xixie.dao.coupon;
 
 import com.example.xixie.model.coupon.Coupon;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-public interface CouponService {
+@Mapper
+public interface CouponMapper {
+
     List<Coupon> queryCouponList();
 
     void addCoupon(Coupon coupon);
