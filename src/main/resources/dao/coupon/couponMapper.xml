@@ -3,7 +3,6 @@
 <mapper namespace="com.example.xixie.dao.coupon.CouponMapper">
     <select id="queryCouponList" resultType="com.example.xixie.model.coupon.Coupon">
         SELECT
-        SELECT
             id,
             price,
             NAME,
