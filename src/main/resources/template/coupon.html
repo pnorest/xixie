@@ -49,15 +49,15 @@
     <Modal v-model="modal" title="优惠券信息修改" okText="修改">
       <div>
 
-        <i-form :model="formItem" :label-width="80">
+        <i-form :model="formItem" :label-width="120">
             <p>
             <FormItem label="优惠券金额">
-                <i-input v-model="formItem.input" placeholder="需修改金额1"></i-input>
+                <i-input v-model="formItem.input" placeholder="优惠券金额"></i-input>
             </FormItem>
             </p>
             <p>
             <FormItem label="优惠券名称">
-                <i-input v-model="formItem.input2" placeholder="需修改名称2"></i-input>
+                <i-input v-model="formItem.input2" placeholder="优惠券名称"></i-input>
             </FormItem>
             </p>
             <p>
@@ -70,7 +70,7 @@
             </p>
             <p>
             <FormItem label="用户id">
-                <i-input v-model="formItem.textarea" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="用户id ..."></i-input>
+                <i-input v-model="formItem.textarea"  :autosize="{minRows: 2,maxRows: 5}" placeholder="用户id ..."></i-input>
             </FormItem>
             </p>
         </i-form>
