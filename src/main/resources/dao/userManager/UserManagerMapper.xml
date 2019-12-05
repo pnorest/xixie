@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.xixie.dao.userManager.UserManagerMapper">
+    <select id="queryUserList" resultType="com.example.xixie.model.userManager.QxAdminUser">
+        SELECT
+            id,
+            NAME,
+            password,
+            create_time AS createTime,
+            `status`
+        FROM
+            qx_admin_user
+    </select>
+
+    <insert id="addUser">
+        INSERT INTO qx_admin_user
+            (
+            password,
+            name,
+            create_time
+            )
+            VALUES
+                (
+                #{password},
+                #{name},
+                now()
+                )
+    </insert>
+
+
+
+
+    <update id="updateUser">
+        UPDATE qx_admin_user
+            SET
+            update_time=now()
+            <if test="name !=null">
+                ,name=#{name}
+            </if>
+            <if test="status !=null">
+                ,status=#{status}
+            </if>
+
+            <if test="password !=null">
+                ,password=#{password}
+            </if>
+            WHERE
+                id =#{id}
+    </update>
+
+
+
+    <select id="queryUserListByUser" resultType="com.example.xixie.model.userManager.QxAdminUser">
+        SELECT
+            id,
+            name,
+            password,
+            create_time AS createTime,
+            `status`
+        FROM
+            qx_admin_user where name=#{name}
+    </select>
+
+
+</mapper>
+  

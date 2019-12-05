@@ -2,6 +2,8 @@ package com.example.xixie.controller.coupon;
 
 import com.example.xixie.model.Result;
 import com.example.xixie.model.coupon.Coupon;
+import com.example.xixie.model.coupon.vo.CouponVo;
+import com.example.xixie.model.wxUser.WxUser;
 import com.example.xixie.service.coupon.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,9 +38,9 @@ public class CouponController {
     //新增优惠券信息
     @RequestMapping("/addCoupon")
     @ResponseBody
-    public Result addCoupon(Coupon coupon) {
+    public Result addCoupon(CouponVo couponVo) {
         try {
-           couponService.addCoupon(coupon);
+           couponService.addCoupon(couponVo);
            return new Result(Result.CODE.SUCCESS.getCode(),"优惠券信息新增成功");
 
         }catch (Exception e){
@@ -47,18 +49,20 @@ public class CouponController {
     }
 
 
-    //删除  逻辑删除（该接口可直接放入更新接口中）
-    @RequestMapping("/deleteCoupon")
+    //新增优惠券时，关联微信号，查询用户微信号列表，进行微信昵称选择
+    @RequestMapping("/queryWxNickNameList")
     @ResponseBody
-    public Result deleteCoupon(Coupon coupon) {//返回订单页面
-        try {//把status改为0（不可使用状态）
-            couponService.deleteCoupon(coupon);
-            return new Result(Result.CODE.SUCCESS.getCode(),"优惠券信息删除成功");
+    public Result queryWxNickNameList() {
+        try {
+            List<WxUser> wxUserList=couponService.queryWxNickNameList();
+            return new Result(Result.CODE.SUCCESS.getCode(),"查询微信公户列表成功",wxUserList);
 
         }catch (Exception e){
-            return new Result(Result.CODE.FAIL.getCode(),"优惠券信息删除失败",e.getMessage());
+            return new Result(Result.CODE.FAIL.getCode(),"查询微信公户列表成功",e.getMessage());
         }
     }
+
+
 
 
 
@@ -66,9 +70,9 @@ public class CouponController {
     //优惠券信息修改  若逻辑删除则把status改为0
     @RequestMapping("/updateCoupon")
     @ResponseBody
-    public Result updateCoupon(Coupon coupon) {//返回订单页面
+    public Result updateCoupon(CouponVo couponVo) {//返回订单页面
         try {  //use_time这里优惠券使用逻辑不明确，后台先去掉优惠券使用
-            couponService.updateCoupon(coupon);
+            couponService.updateCoupon(couponVo);
             return new Result(Result.CODE.SUCCESS.getCode(),"优惠券信息更新成功");
         }catch (Exception e){
             return new Result(Result.CODE.FAIL.getCode(),"优惠券信息更新失败",e.getMessage());
@@ -78,7 +82,7 @@ public class CouponController {
     //全部订单查询
     @RequestMapping("/queryCouponList")
     @ResponseBody
-    public List<Coupon> queryCouponList() {//返回订单页面
+    public List<CouponVo> queryCouponList() {//返回订单页面
         try {
             return couponService.queryCouponList();
 
@@ -90,10 +94,10 @@ public class CouponController {
 
 
 
-    //根据查询条件查询（暂时支持用户id查询，可修改）
+    //根据查询条件查询（暂时支持用户名查询，可修改）
     @RequestMapping("/queryCouponListByUser")
     @ResponseBody
-    public List<Coupon> queryCouponListByUser(Integer searchValue) {//返回订单页面
+    public List<CouponVo> queryCouponListByUser(String searchValue) {//返回订单页面
         try {
             return couponService.queryCouponListByUser(searchValue);
 
@@ -102,6 +106,39 @@ public class CouponController {
             return null;
         }
     }
+
+
+    //优惠券id查询信息，回写给前台数据
+    @RequestMapping("/queryCouponInfoByCouponId")
+    @ResponseBody
+    public CouponVo queryCouponInfoByCouponId(Integer id) {//返回订单页面
+        try {
+            return couponService.queryCouponInfoById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+
+
+
+
+    //(弃用)删除  逻辑删除（该接口可直接放入更新接口中）
+    @RequestMapping("/deleteCoupon")
+    @ResponseBody
+    public Result deleteCoupon(CouponVo couponVo) {//返回订单页面
+        try {//把status改为0（不可使用状态）
+            couponService.deleteCoupon(couponVo);
+            return new Result(Result.CODE.SUCCESS.getCode(),"优惠券信息删除成功");
+
+        }catch (Exception e){
+            return new Result(Result.CODE.FAIL.getCode(),"优惠券信息删除失败",e.getMessage());
+        }
+    }
+
 
 
 }

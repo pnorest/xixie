@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.xixie.dao.coupon.CouponMapper">
-    <select id="queryCouponList" resultType="com.example.xixie.model.coupon.Coupon">
+    <select id="queryCouponList" resultType="com.example.xixie.model.coupon.vo.CouponVo">
         SELECT
-            id,
-            price,
-            NAME,
-            create_time AS createTime,
-            `status`,
-            use_time AS useTime,
-            user_id AS userId,
-            type
+            a.id,
+            a.price,
+            a.NAME,
+            a.create_time AS createTime,
+            a.`status`,
+            a.use_time AS useTime,
+            a.user_id AS userId,
+            a.type,
+            b.nickname,
+            b.phone
         FROM
-            qx_coupon
+            qx_coupon a
+            LEFT JOIN wx_user b ON a.user_id = b.id
+        WHERE
+            b.nickname IS NOT NULL
     </select>
 
     <insert id="addCoupon">
@@ -21,7 +26,6 @@
             price,
             name,
             create_time,
-            status,
             user_id,
             type
             )
@@ -30,7 +34,6 @@
                 #{price},
                 #{name},
                 now(),
-                1,
                 #{userId},
                 #{type}
                 )
@@ -70,18 +73,61 @@
 
 
 
-    <select id="queryCouponListByUser" resultType="com.example.xixie.model.coupon.Coupon">
+    <select id="queryCouponListByUser" resultType="com.example.xixie.model.coupon.vo.CouponVo">
+            SELECT
+            a.id,
+            a.price,
+            a.NAME,
+            a.create_time AS createTime,
+            a.`status`,
+            a.use_time AS useTime,
+            a.user_id AS userId,
+            a.type,
+            b.nickname,
+            b.phone
+        FROM
+            qx_coupon a
+            LEFT JOIN wx_user b ON a.user_id = b.id
+        WHERE
+             b.nickname=#{searchValue}
+    </select>
+
+    <select id="queryCouponInfoById" resultType="com.example.xixie.model.coupon.vo.CouponVo">
+           SELECT
+            a.id,
+            a.price,
+            a.NAME,
+            a.create_time AS createTime,
+            a.`status`,
+            a.use_time AS useTime,
+            a.user_id AS userId,
+            a.type,
+            b.nickname,
+            b.phone
+        FROM
+            qx_coupon a
+            LEFT JOIN wx_user b ON a.user_id = b.id
+            where a.id=#{id}
+    </select>
+
+    <select id="queryWxNickNameList" resultType="com.example.xixie.model.wxUser.WxUser">
         SELECT
             id,
-            price,
-            NAME,
-            create_time AS createTime,
+            openid,
+            unionid,
+            avatar,
+            nickname,
+            phone,
+            gender,
+            province,
+            city,
+            source,
+            create_time as createTime,
             `status`,
-            use_time AS useTime,
-            user_id AS userId,
-            type
+            last_login_time as lastLoginTime,
+            wx_openid as wxOpenid
         FROM
-            qx_coupon where user_id=#{userId}
+            wx_user
     </select>
 
 
