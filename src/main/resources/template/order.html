@@ -106,6 +106,21 @@
                 }else {
                     this.$http.get('/orderSearch',{params:{searchValue: this.searchValue}}).then(function (response) {
                         this.ajaxHistoryData=response.body;
+                        for (let i = 0;i<this.ajaxHistoryData.length;i++){
+                            let obj = this.ajaxHistoryData[i];
+                            this.ajaxHistoryData[i].status=this.ajaxHistoryData[i].status==0?"清洗":"修复";//0清洗  1修复
+                            if(this.ajaxHistoryData[i].type=0){
+                                this.ajaxHistoryData[i].type="已付款";
+                            }
+                            if (this.ajaxHistoryData[i].type=1) {
+                                this.ajaxHistoryData[i].type="待收货";
+                            }
+                            if (this.ajaxHistoryData[i].type=2) {
+                                this.ajaxHistoryData[i].type="已完成";
+                            }
+
+                            this.ajaxHistoryData[i].createTime=this.myTime(this.ajaxHistoryData[i].createTime);
+                        }
                         this.dataCount = response.body.length;
                         // 初始化显示，小于每页显示条数，全显，大于每页显示条数，取前每页条数显示
                         if(response.body.length < this.pageSize){

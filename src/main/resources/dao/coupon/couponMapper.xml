@@ -57,9 +57,7 @@
             <if test="status !=null">
                 ,status=#{status}
             </if>
-            <if test="useTime !=null">
-                ,use_time=#{useTime}
-            </if>
+
             <if test="userId !=null">
                 ,user_id=#{userId}
             </if>

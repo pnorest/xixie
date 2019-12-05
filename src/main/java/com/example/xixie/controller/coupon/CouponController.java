@@ -67,7 +67,7 @@ public class CouponController {
     @RequestMapping("/updateCoupon")
     @ResponseBody
     public Result updateCoupon(Coupon coupon) {//返回订单页面
-        try {  //use_time这里优惠券的使用不明确
+        try {  //use_time这里优惠券使用逻辑不明确，后台先去掉优惠券使用
             couponService.updateCoupon(coupon);
             return new Result(Result.CODE.SUCCESS.getCode(),"优惠券信息更新成功");
         }catch (Exception e){
