@@ -17,6 +17,7 @@ public class Coupon {
     private Integer status;
     private Date useTime;
     private Integer userId;
+    private String type;//三种类型 0通用 1清洗 2修复
 
     public Integer getId() {
         return id;
@@ -72,5 +73,13 @@ public class Coupon {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

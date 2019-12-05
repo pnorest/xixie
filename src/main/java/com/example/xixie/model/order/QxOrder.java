@@ -11,7 +11,7 @@ import java.util.Date;
  **/
 public class QxOrder {
     private Integer id;
-    private Integer orderNo;
+    private String orderNo;
     private Double price;
     private Double discountPrice;
     private Integer userId;
@@ -23,6 +23,8 @@ public class QxOrder {
     private Integer status;
     private Date updateTime;
     private String shoeImg;
+    private String deliveryWay;
+    private String deliveryNo;
 
     public Integer getId() {
         return id;
@@ -32,11 +34,11 @@ public class QxOrder {
         this.id = id;
     }
 
-    public Integer getOrderNo() {
+    public String getOrderNo() {
         return orderNo;
     }
 
-    public void setOrderNo(Integer orderNo) {
+    public void setOrderNo(String orderNo) {
         this.orderNo = orderNo;
     }
 
@@ -126,5 +128,21 @@ public class QxOrder {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getDeliveryWay() {
+        return deliveryWay;
+    }
+
+    public void setDeliveryWay(String deliveryWay) {
+        this.deliveryWay = deliveryWay;
+    }
+
+    public String getDeliveryNo() {
+        return deliveryNo;
+    }
+
+    public void setDeliveryNo(String deliveryNo) {
+        this.deliveryNo = deliveryNo;
     }
 }

@@ -40,4 +40,9 @@ public class CouponServiceImpl implements CouponService {
     }
 
 
+    public List<Coupon> queryCouponListByUser(Integer userId){
+        return couponMapper.queryCouponListByUser(userId);
+    }
+
+
 }

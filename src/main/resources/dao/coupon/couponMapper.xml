@@ -9,7 +9,8 @@
             create_time AS createTime,
             `status`,
             use_time AS useTime,
-            user_id AS userId
+            user_id AS userId,
+            type
         FROM
             qx_coupon
     </select>
@@ -21,7 +22,8 @@
             name,
             create_time,
             status,
-            user_id
+            user_id,
+            type
             )
             VALUES
                 (
@@ -29,7 +31,8 @@
                 #{name},
                 now(),
                 1,
-                #{userId}
+                #{userId},
+                #{type}
                 )
     </insert>
 
@@ -44,14 +47,44 @@
     <update id="updateCoupon">
         UPDATE qx_coupon
             SET
-            `status` = #{status} ,
-            price=#{price},
-            `name`=#{name},
-            use_time=now(),
-            user_id=#{userId}
+            last_update_time=now()
+            <if test="price !=null">
+                ,price=#{price}
+            </if>
+            <if test="name !=null">
+                ,name=#{name}
+            </if>
+            <if test="status !=null">
+                ,status=#{status}
+            </if>
+            <if test="useTime !=null">
+                ,use_time=#{useTime}
+            </if>
+            <if test="userId !=null">
+                ,user_id=#{userId}
+            </if>
+            <if test="type !=null">
+                ,type=#{type}
+            </if>
             WHERE
                 id =#{id}
     </update>
+
+
+
+    <select id="queryCouponListByUser" resultType="com.example.xixie.model.coupon.Coupon">
+        SELECT
+            id,
+            price,
+            NAME,
+            create_time AS createTime,
+            `status`,
+            use_time AS useTime,
+            user_id AS userId,
+            type
+        FROM
+            qx_coupon where user_id=#{userId}
+    </select>
 
 
 </mapper>

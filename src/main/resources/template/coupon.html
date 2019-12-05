@@ -191,8 +191,26 @@
                 if (this.searchValue.split(" ").join("").length === 0){
                     this.orderList();
                 }else {
-                    this.$http.get('/orderSearch',{params:{searchValue: this.searchValue}}).then(function (response) {
+                    this.$http.get('/queryCouponListByUser',{params:{searchValue: this.searchValue}}).then(function (response) {
                         this.ajaxHistoryData=response.body;
+                        for (let i = 0;i<this.ajaxHistoryData.length;i++){
+                            // let obj = this.ajaxHistoryData[i];
+                            this.ajaxHistoryData[i].status=this.ajaxHistoryData[i].status==0?"可使用":"不可使用";//0清洗  1修复
+                            this.ajaxHistoryData[i].createTime=this.myTime(this.ajaxHistoryData[i].createTime);
+                            this.ajaxHistoryData[i].useTime=this.myTime(this.ajaxHistoryData[i].useTime);
+                            console.log("this.ajaxHistoryData[i].type"+this.ajaxHistoryData[i].type)
+                            if(this.ajaxHistoryData[i].type==0){
+                                this.ajaxHistoryData[i].type="通用";
+                            }else if(this.ajaxHistoryData[i].type==1){
+                                this.ajaxHistoryData[i].type="清洗";
+
+                            }else {
+                                this.ajaxHistoryData[i].type="修复";
+                            }
+
+
+                        }
+
                         this.dataCount = response.body.length;
                         // 初始化显示，小于每页显示条数，全显，大于每页显示条数，取前每页条数显示
                         if(response.body.length < this.pageSize){
@@ -213,6 +231,16 @@
                         this.ajaxHistoryData[i].status=this.ajaxHistoryData[i].status==0?"可使用":"不可使用";//0清洗  1修复
                         this.ajaxHistoryData[i].createTime=this.myTime(this.ajaxHistoryData[i].createTime);
                         this.ajaxHistoryData[i].useTime=this.myTime(this.ajaxHistoryData[i].useTime);
+                        console.log("this.ajaxHistoryData[i].type"+this.ajaxHistoryData[i].type)
+                        if(this.ajaxHistoryData[i].type==0){
+                            this.ajaxHistoryData[i].type="通用";
+                        }else if(this.ajaxHistoryData[i].type==1){
+                            this.ajaxHistoryData[i].type="清洗";
+
+                        }else {
+                            this.ajaxHistoryData[i].type="修复";
+                        }
+
 
                     }
                     this.dataCount = response.body.length;

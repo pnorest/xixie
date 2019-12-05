@@ -121,11 +121,11 @@
             orderList () {
                 this.$http.get('/orderList').then(function (response) {
                     this.ajaxHistoryData=response.body;
-                    console.log("obj.status:"+this.ajaxHistoryData[0].status);
-                    console.log("obj.type:"+this.ajaxHistoryData[0].type);
-                    console.log("obj.createTime:"+this.ajaxHistoryData[0].createTime);
-                    console.log(this.ajaxHistoryData[0].status==0?"清洗":"修复");//0清洗  1修复
-                    console.log("obj.type:"+this.ajaxHistoryData[0].type?"":"");//type//0已付款 1待收货 2已完成
+                    // console.log("obj.status:"+this.ajaxHistoryData[0].status);
+                    // console.log("obj.type:"+this.ajaxHistoryData[0].type);
+                    // console.log("obj.createTime:"+this.ajaxHistoryData[0].createTime);
+                    // console.log(this.ajaxHistoryData[0].status==0?"清洗":"修复");//0清洗  1修复
+                    // console.log("obj.type:"+this.ajaxHistoryData[0].type?"":"");//type//0已付款 1待收货 2已完成
 
                     // this.ajaxHistoryData[0].createTime=this.myTime(this.ajaxHistoryData[0].createTime);
                     // console.log("createTime"+this.ajaxHistoryData[0].createTime);

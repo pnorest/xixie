@@ -43,7 +43,9 @@
         a.`status`,
         a.type,
         a.update_time as updateTime,
-        a.user_id as userId
+        a.user_id as userId,
+        a.delivery_way as deliveryWay,
+        a.delivery_no as deliveryNo
         FROM
         qx_order a
 

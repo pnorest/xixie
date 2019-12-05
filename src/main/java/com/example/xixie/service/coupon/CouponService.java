@@ -12,4 +12,6 @@ public interface CouponService {
     void deleteCoupon(Coupon coupon);
 
     void updateCoupon(Coupon coupon);
+
+    List<Coupon> queryCouponListByUser(Integer userId);
 }
