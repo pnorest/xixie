@@ -17,7 +17,7 @@
             qx_coupon a
             LEFT JOIN wx_user b ON a.user_id = b.id
         WHERE
-            b.nickname IS NOT NULL
+            a.status=1 and b.nickname IS NOT NULL
     </select>
 
     <insert id="addCoupon">
@@ -89,7 +89,7 @@
             qx_coupon a
             LEFT JOIN wx_user b ON a.user_id = b.id
         WHERE
-             b.nickname=#{searchValue}
+            a.status=1 and b.nickname=#{searchValue}
     </select>
 
     <select id="queryCouponInfoById" resultType="com.example.xixie.model.coupon.vo.CouponVo">
@@ -107,7 +107,7 @@
         FROM
             qx_coupon a
             LEFT JOIN wx_user b ON a.user_id = b.id
-            where a.id=#{id}
+            where  and a.id=#{id}
     </select>
 
     <select id="queryWxNickNameList" resultType="com.example.xixie.model.wxUser.WxUser">
@@ -129,6 +129,15 @@
         FROM
             wx_user
     </select>
+
+
+    <update id="batchDeleteCoupon">
+        update qx_coupon set
+        status=0 where id in
+        <foreach collection="couponIdList" item="item" index="index" open="(" close=")" separator=",">
+            #{item.id}
+        </foreach>
+    </update>
 
 
 </mapper>

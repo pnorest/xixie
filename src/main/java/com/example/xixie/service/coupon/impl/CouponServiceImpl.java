@@ -1,6 +1,7 @@
 package com.example.xixie.service.coupon.impl;
 
 import com.example.xixie.dao.coupon.CouponMapper;
+import com.example.xixie.model.Result;
 import com.example.xixie.model.coupon.Coupon;
 import com.example.xixie.model.coupon.vo.CouponVo;
 import com.example.xixie.model.wxUser.WxUser;
@@ -53,6 +54,11 @@ public class CouponServiceImpl implements CouponService {
 
     public List<WxUser> queryWxNickNameList(){
         return couponMapper.queryWxNickNameList();
+    }
+
+    public void batchDeleteCoupon(List<CouponVo> couponIdList){
+         couponMapper.batchDeleteCoupon(couponIdList);
+
     }
 
 

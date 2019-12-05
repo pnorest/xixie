@@ -1,5 +1,6 @@
 package com.example.xixie.service.coupon;
 
+import com.example.xixie.model.Result;
 import com.example.xixie.model.coupon.Coupon;
 import com.example.xixie.model.coupon.vo.CouponVo;
 import com.example.xixie.model.wxUser.WxUser;
@@ -20,4 +21,6 @@ public interface CouponService {
     CouponVo queryCouponInfoById(Integer id);
 
     List<WxUser> queryWxNickNameList();
+
+    void batchDeleteCoupon(List<CouponVo> couponIdList);
 }

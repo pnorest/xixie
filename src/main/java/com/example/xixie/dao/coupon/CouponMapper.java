@@ -1,9 +1,11 @@
 package com.example.xixie.dao.coupon;
 
+import com.example.xixie.model.Result;
 import com.example.xixie.model.coupon.Coupon;
 import com.example.xixie.model.coupon.vo.CouponVo;
 import com.example.xixie.model.wxUser.WxUser;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,4 +25,6 @@ public interface CouponMapper {
     CouponVo queryCouponInfoById(Integer id);
 
     List<WxUser> queryWxNickNameList();
+
+    void batchDeleteCoupon(@Param("couponIdList") List<CouponVo> couponIdList);
 }

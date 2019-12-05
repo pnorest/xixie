@@ -5,9 +5,12 @@ import com.example.xixie.model.coupon.Coupon;
 import com.example.xixie.model.coupon.vo.CouponVo;
 import com.example.xixie.model.wxUser.WxUser;
 import com.example.xixie.service.coupon.CouponService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -104,6 +107,23 @@ public class CouponController {
         }catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+
+    //根据优惠券id，批量逻辑删除优惠券
+    @RequestMapping("/batchDeleteCoupon")
+    @ResponseBody
+    public Result batchDeleteCoupon( @RequestBody List<CouponVo>  couponIdList) {//返回订单页面
+        try {
+            if(couponIdList.size()<1){
+                return new Result(Result.CODE.FAIL.getCode(),"没有收到删除列表的数据");
+            }
+            couponService.batchDeleteCoupon(couponIdList);
+            return new Result(Result.CODE.SUCCESS.getCode(),"优惠券删除成功(批量)");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Result(Result.CODE.FAIL.getCode(),"优惠券删除失败(批量)");
         }
     }
 
