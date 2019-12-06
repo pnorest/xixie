@@ -50,7 +50,7 @@
     <update id="updateCoupon">
         UPDATE qx_coupon
             SET
-            last_update_time=now()
+            id=#{id}
             <if test="price !=null">
                 ,price=#{price}
             </if>
